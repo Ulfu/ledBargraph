@@ -20,6 +20,7 @@ const int ledMaxPin = 11;      // the number of the LED pin
 const int buttonPin1 = 2;      // the number of the button pin
 const int buttonPin2 = 3;      // the number of the button pin
 
+int delayTime = 200;
 int ledsOn = 0; //Current LEDs that are HIGH
 boolean buttonValue1;
 boolean buttonValue2;
@@ -41,14 +42,21 @@ void loop() {
   buttonValue2 = digitalRead(buttonPin2);
   if (!buttonValue1) {    
    digitalWrite((ledMinPin + ledsOn), HIGH);
-    ledsOn++;    
+    ledsOn++;
+    pause(delayTime);    
   }
   if (!buttonValue2) {
     digitalWrite((ledMinPin + ledsOn), LOW);
     ledsOn--;
+    pause(delayTime);
   }
   
   ledsOn = constrain(ledsOn, 1, (ledMaxPin - ledMinPin));
-  delay(60);
   Serial.println(ledsOn); //
 }
+
+void pause(int delayTime) {
+  delay(delayTime);
+}
+
+
