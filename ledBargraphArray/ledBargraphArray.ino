@@ -28,7 +28,7 @@ boolean buttonValue2;
 void setup() {
   for (int i = 0; i < 8; i++) {
   //Assign number of pins
-    ledPins[i] = i + 3; 
+    ledPins[i] = i + 4; 
   //Set all led states to LOW 
     ledsState[i] = false;
   // initialize the LED pins as an outputs:
@@ -53,7 +53,7 @@ void loop() {
   }
   ledsOn = constrain(ledsOn, 0, 8);
   for (int i = 0;  i < 8; i++) {
-    if (ledsOn <= i) {
+    if (ledsOn > i) {
       ledsState[i] = true;
     }
     else {
