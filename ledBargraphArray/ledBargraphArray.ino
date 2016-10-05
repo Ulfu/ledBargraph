@@ -12,7 +12,6 @@ int delayTime = 200;
 int ledsState[8]; //Current LEDs that are HIGH
 boolean buttonValue1;
 boolean buttonValue2;
-boolean LEDchanged = false;
 
 void setup() {
   for (int i = 0; i < 8; i++) {
@@ -33,7 +32,7 @@ void loop() {
   buttonValue1 = digitalRead(buttonPin1);
   buttonValue2 = digitalRead(buttonPin2);
 
-  for (int i = 0;  i < 8; i++) {
+  for (int i = 0;  i <= 7; i++) {
 
     Serial.println(ledsState[i]); //Prints led state
     if (!ledsState[i] && !buttonValue1) {
@@ -47,7 +46,6 @@ void loop() {
    for (int i = 7;  i >= 0 ; i--) {
       if  (ledsState[i] && !buttonValue2) {
       ledsState[i] = false;
-      LEDchanged = true;
 
       digitalWrite(ledPins[i], ledsState[i]);
       delay(delayTime);
