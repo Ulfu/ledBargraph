@@ -1,5 +1,5 @@
 /*
-  This example code is in the public domain.
+  This code is in the public domain.
 */
 
 // constants won't change. They're used here to
@@ -8,8 +8,8 @@ int ledPins[8];      // the number of the LED pin
 const int buttonPin1 = 2;      // the number of the button pin
 const int buttonPin2 = 3;      // the number of the button pin
 
-int delayTime = 200;
-int ledsState[8]; //Current LEDs that are HIGH
+int ledPointer = 0; //ledsOn
+int delayTime = 200; //Time to wait when a button is pressed
 boolean buttonValue1;
 boolean buttonValue2;
 
@@ -17,8 +17,6 @@ void setup() {
   for (int i = 0; i < 8; i++) {
     //Assign number of pins
     ledPins[i] = i + 4;
-    //Set all led states to LOW
-    ledsState[i] = false;
     // initialize the LED pins as an outputs:
     pinMode(ledPins[i], OUTPUT);
   }
@@ -31,25 +29,24 @@ void setup() {
 void loop() {
   buttonValue1 = digitalRead(buttonPin1);
   buttonValue2 = digitalRead(buttonPin2);
-
+  
+  if (!buttonValue1) {
+    ledPointer++;
+  }
+  if (!buttonValue2) {
+    ledPointer--;
+  }
   for (int i = 0;  i <= 7; i++) {
 
     Serial.println(ledsState[i]); //Prints led state
-    if (!ledsState[i] && !buttonValue1) {
-      ledsState[i] = true;
+    if (i < (ledPointer - 1)) {
       
-      digitalWrite(ledPins[i], ledsState[i]);
-      delay(delayTime);
-      break;
+      digitalWrite(ledPins[i], HIGH);
+    }
+    else {
+      digitalWrite(ledPins[i], LOW);
     }
   }
-   for (int i = 7;  i >= 0 ; i--) {
-      if  (ledsState[i] && !buttonValue2) {
-      ledsState[i] = false;
-
-      digitalWrite(ledPins[i], ledsState[i]);
-      delay(delayTime);
-      break;
-    }
-   }
+  if (!buttonValue1 || !buttonValue2)
+    delay(delayTime);
 }
