@@ -38,7 +38,6 @@ void loop() {
   }
   for (int i = 0;  i <= 7; i++) {
 
-    Serial.println(ledsState[i]); //Prints led state
     if (i < (ledPointer - 1)) {
       
       digitalWrite(ledPins[i], HIGH);
@@ -47,6 +46,7 @@ void loop() {
       digitalWrite(ledPins[i], LOW);
     }
   }
+  Serial.println(ledPointer); //Prints leds on
   if (!buttonValue1 || !buttonValue2)
     delay(delayTime);
 }
